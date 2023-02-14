@@ -184,11 +184,12 @@ runs:
       run: |
         export PATH=${{ inputs.dependencies_install_dir }}/view/bin:$PATH
         cd ${{ inputs.app_install_dir }}/run
-        mpirun --oversubscribe -np 6 --allow-run-as-root ${{ inputs.app_install_dir }}/build/esmx 2>&1 | tee out_err.txt
+        mpirun --oversubscribe -np 6 --allow-run-as-root ${{ inputs.app_install_dir }}/build/esmx #2>&1 | tee out_err.txt
         # if debug is enabled then output ESMF log files
-        if [[ "${{ inputs.debug }}" == "true" ]]; then
-          echo PET*
-        fi
+        #if [[ "${{ inputs.debug }}" == "true" ]]; then
+        #  cat PET*
+        #fi
+        cat PET*
       shell: bash
 
     # upload model artifacts to check it later
