@@ -39,6 +39,10 @@ inputs:
     description: data component name
     required: false
     default: datm
+  debug:
+    description: enables debug output
+    required: false
+    default: false
   dependencies:
     description: list of packages to install
     required: true
@@ -181,6 +185,10 @@ runs:
         export PATH=${{ inputs.dependencies_install_dir }}/view/bin:$PATH
         cd ${{ inputs.app_install_dir }}/run
         mpirun --oversubscribe -np 6 --allow-run-as-root ${{ inputs.app_install_dir }}/build/esmx 2>&1 | tee out_err.txt
+        # if debug is enabled then output ESMF log files
+        if [[ "${{ inputs.debug }}" == "true" ]]; then
+          echo PET*
+        fi
       shell: bash
 
     # upload model artifacts to check it later
